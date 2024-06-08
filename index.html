@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oktán.hu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+        .content {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>oktán.hu</h1>
+    </header>
+    <div class="content">
+        <h2>Kutya étkezési idők</h2>
+        <ul>
+            <li>Reggel: 8:00</li>
+            <li>Délután: 15:00</li>
+            <li>Este: 19:00</li>
+        </ul>
+
+        <h2>Kaja vásárlás</h2>
+        <ul id="kaja-vasarlas"></ul>
+
+        <h2>Kozmetikus</h2>
+        <ul id="kozmetikus"></ul>
+    </div>
+    <script>
+        function addMonths(date, months) {
+            let d = new Date(date);
+            d.setMonth(d.getMonth() + months);
+            return d;
+        }
+
+        function formatDate(date) {
+            let day = date.getDate();
+            let month = date.getMonth() + 1; // Months are zero-based
+            let year = date.getFullYear();
+            return `${year}. ${month < 10 ? '0' + month : month}. ${day < 10 ? '0' + day : day}.`;
+        }
+
+        function addListItem(ulElement, text) {
+            let li = document.createElement('li');
+            li.textContent = text;
+            ulElement.appendChild(li);
+        }
+
+        const today = new Date();
+        const kajaVasarlasUl = document.getElementById('kaja-vasarlas');
+        const kozmetikusUl = document.getElementById('kozmetikus');
+
+        // Add kaja vásárlás dates
+        for (let i = 0; i < 12; i += 0.5) {
+            let date = addMonths(today, i);
+            addListItem(kajaVasarlasUl, formatDate(date));
+        }
+
+        // Add kozmetikus dates
+        for (let i = 2; i <= 12; i += 2) {
+            let date = addMonths(today, i);
+            addListItem(kozmetikusUl, formatDate(date));
+        }
+    </script>
+</body>
+</html>
